@@ -10,13 +10,21 @@ if len(sys.argv) != 2:
 
 input_path = Path(sys.argv[1]).expanduser().resolve()
 
+# 문서 이름과 확장자로 결과 폴더 구분
+extension = input_path.suffix.lower().lstrip(".")
+
 output_dir = (
     Path(__file__).resolve().parent
     / "html_output"
-    / f"{input_path.stem}_pptx_all"
+    / f"{input_path.stem}_{extension}"
 )
-image_dir = output_dir / "images"
+
+output_dir.mkdir(parents=True, exist_ok=True)
+
 output_path = output_dir / "index.html"
+
+image_dir = output_dir / "images"
+image_dir.mkdir(parents=True, exist_ok=True)
 
 if not input_path.is_file():
     raise FileNotFoundError(f"파일을 찾을 수 없습니다: {input_path}")

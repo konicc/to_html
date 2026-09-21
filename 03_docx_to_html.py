@@ -8,9 +8,18 @@ if len(sys.argv) != 2:
 
 input_path = Path(sys.argv[1]).expanduser().resolve()
 
-# 원본 옆의 html_output 폴더에 저장
-output_dir = input_path.parent / "html_output"
-output_path = output_dir / f"{input_path.stem}_docx.html"
+# 문서 이름과 확장자로 결과 폴더 구분
+extension = input_path.suffix.lower().lstrip(".")
+
+output_dir = (
+    Path(__file__).resolve().parent
+    / "html_output"
+    / f"{input_path.stem}_{extension}"
+)
+
+output_dir.mkdir(parents=True, exist_ok=True)
+
+output_path = output_dir / "index.html"
 
 if not input_path.is_file():
     raise FileNotFoundError(f"파일을 찾을 수 없습니다: {input_path}")
