@@ -1,0 +1,63 @@
+from pathlib import Path
+import mammoth
+
+# 변환할 DOCX 파일
+input_path = Path(r"C:\Users\Cotax\Desktop\k\html\test_docx.docx")
+
+# 원본 옆의 html_output 폴더에 저장
+output_dir = input_path.parent / "html_output"
+output_path = output_dir / f"{input_path.stem}_docx.html"
+
+if not input_path.is_file():
+    raise FileNotFoundError(f"파일을 찾을 수 없습니다: {input_path}")
+
+output_dir.mkdir(parents=True, exist_ok=True)
+
+if output_path.exists():
+    raise FileExistsError(f"이미 결과 파일이 있습니다: {output_path}")
+
+# DOCX를 읽어 HTML 본문으로 변환
+with input_path.open("rb") as docx_file:
+    result = mammoth.convert_to_html(docx_file)
+
+# 브라우저에서 열 수 있는 완전한 HTML 문서 구성
+html_content = """<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DOCX 변환 결과</title>
+    <style>
+        body {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            font-family: "맑은 고딕", sans-serif;
+            line-height: 1.7;
+        }
+        table {
+            border-collapse: collapse;
+            max-width: 100%;
+        }
+        td, th {
+            border: 1px solid #aaa;
+            padding: 8px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+""" + result.value + """
+</body>
+</html>
+"""
+
+output_path.write_text(html_content, encoding="utf-8")
+print(f"변환 완료: {output_path}")
+
+# 변환 중 발생한 주의 메시지 출력
+for message in result.messages:
+    print(f"[{message.type}] {message.message}")
