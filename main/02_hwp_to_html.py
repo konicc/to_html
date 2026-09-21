@@ -35,7 +35,6 @@ hwp = win32com.client.DispatchEx("HWPFrame.HwpObject")
 
 try:
     hwp.XHwpWindows.Item(0).Visible = True
-
     print("1. 문서 열기 시작")
     opened = hwp.Open(str(input_path.resolve()), "", "")
     print("2. 문서 열기 결과:", opened)
