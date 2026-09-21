@@ -27,7 +27,6 @@ output_path = output_dir / "index.html"
 if not input_path.is_file():
     raise FileNotFoundError(f"파일을 찾을 수 없습니다: {input_path}")
 
-output_dir.mkdir(parents=True, exist_ok=True)
 
 if output_path.exists():
     raise FileExistsError(f"이미 결과 파일이 있습니다: {output_path}")

@@ -32,7 +32,6 @@ image_dir.mkdir(parents=True, exist_ok=True)
 if not input_path.is_file():
     raise FileNotFoundError(f"파일을 찾을 수 없습니다: {input_path}")
 
-image_dir.mkdir(parents=True, exist_ok=True)
 
 presentation = Presentation(str(input_path))
 

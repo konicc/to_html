@@ -28,7 +28,6 @@ output_path = output_dir / "index.html"
 if not input_path.is_file():
     raise FileNotFoundError(f"파일을 찾을 수 없습니다: {input_path}")
 
-output_dir.mkdir(parents=True, exist_ok=True)
 
 # 수식 자체 대신 파일에 저장된 계산 결과를 읽기
 workbook = load_workbook(

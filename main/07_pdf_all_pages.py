@@ -30,7 +30,6 @@ image_dir.mkdir(parents=True, exist_ok=True)
 if not input_path.is_file():
     raise FileNotFoundError(f"파일을 찾을 수 없습니다: {input_path}")
 
-image_dir.mkdir(parents=True, exist_ok=True)
 
 # 일반 문자열이므로 CSS 중괄호를 한 개씩 사용
 html_header = """<!DOCTYPE html>
