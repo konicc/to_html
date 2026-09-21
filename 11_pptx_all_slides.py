@@ -1,12 +1,14 @@
+import sys
+
 from pathlib import Path
 from html import escape
 from pptx import Presentation
 from pptx.enum.shapes import MSO_SHAPE_TYPE
 
-# 방금 확인한 PPTX 파일 경로
-input_path = Path(
-    r"C:\Users\Cotax\Desktop\k\to_html\스마트물류 자원 및 예측 관리.pptx"
-)
+if len(sys.argv) != 2:
+    raise SystemExit("변환할 파일 경로를 인자로 전달해주세요.")
+
+input_path = Path(sys.argv[1]).expanduser().resolve()
 
 output_dir = (
     Path(__file__).resolve().parent

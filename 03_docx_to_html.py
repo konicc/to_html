@@ -1,8 +1,12 @@
+import sys
+
 from pathlib import Path
 import mammoth
 
-# 변환할 DOCX 파일
-input_path = Path(r"C:\Users\Cotax\Desktop\k\html\test_docx.docx")
+if len(sys.argv) != 2:
+    raise SystemExit("변환할 파일 경로를 인자로 전달해주세요.")
+
+input_path = Path(sys.argv[1]).expanduser().resolve()
 
 # 원본 옆의 html_output 폴더에 저장
 output_dir = input_path.parent / "html_output"

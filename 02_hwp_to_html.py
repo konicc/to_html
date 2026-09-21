@@ -1,8 +1,12 @@
+import sys
+
 from pathlib import Path
 import win32com.client
 
-# 변환할 HWP 파일 — 실제 파일 경로로 수정
-input_path = Path(r"C:\Users\Cotax\Desktop\k\to_html\text_hwpx.hwpx")
+if len(sys.argv) != 2:
+    raise SystemExit("변환할 파일 경로를 인자로 전달해주세요.")
+
+input_path = Path(sys.argv[1]).expanduser().resolve()
 
 # 원본 옆의 html_output 폴더에 저장
 output_dir = input_path.parent / "html_output"
@@ -39,7 +43,7 @@ try:
 except Exception as e:
     print("오류 종류:", type(e).__name__)
     print("오류 내용:", e)
+    raise
 
 finally:
-    input("결과를 확인한 뒤 Enter를 누르면 한글을 종료합니다.")
     hwp.Quit()

@@ -1,10 +1,12 @@
+import sys
+
 from pathlib import Path
 import pymupdf
 
-# 실제 PDF 파일 경로로 수정
-input_path = Path(
-    r"C:\Users\Cotax\Desktop\k\to_html\강의자료 메타버스 게임기술과 산업 도메인 특화 디지털트윈.pdf"
-)
+if len(sys.argv) != 2:
+    raise SystemExit("변환할 파일 경로를 인자로 전달해주세요.")
+
+input_path = Path(sys.argv[1]).expanduser().resolve()
 
 # 문서별 결과 폴더 생성
 output_dir = (
